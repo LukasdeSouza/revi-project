@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen text-white;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 shadow-xl;
+  }
+  
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900;
+  }
+  
+  .btn-primary {
+    @apply btn bg-primary-600 hover:bg-primary-700 text-white focus:ring-primary-500;
+  }
+  
+  .btn-secondary {
+    @apply btn bg-white/10 hover:bg-white/20 text-white border border-white/20 focus:ring-white/50;
+  }
+  
+  .input {
+    @apply w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+  }
+  
+  .monster-card {
+    @apply card hover:scale-105 transition-transform duration-300 cursor-pointer;
+  }
+  
+  .battle-arena {
+    @apply relative bg-gradient-to-r from-red-500/20 to-blue-500/20 border-2 border-white/30 rounded-2xl p-8;
+  }
+}
