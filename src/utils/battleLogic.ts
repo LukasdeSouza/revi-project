@@ -2,8 +2,8 @@ import type { Monster, BattleRound, BattleResult } from '../types/monster';
 
 export function calculateBattle(monster1: Monster, monster2: Monster): BattleResult {
   const rounds: BattleRound[] = [];
-  const currentMonster1 = { ...monster1 };
-  const currentMonster2 = { ...monster2 };
+  let currentMonster1 = { ...monster1 };
+  let currentMonster2 = { ...monster2 };
   
   // Determinar quem ataca primeiro
   let firstAttacker: Monster;
@@ -26,32 +26,31 @@ export function calculateBattle(monster1: Monster, monster2: Monster): BattleRes
     }
   }
   
-  let roundNumber = 1;
+  let attacker = firstAttacker;
+  let defender = firstDefender;
   
+  // Batalha em rounds até que um monstro seja derrotado
   while (currentMonster1.hp > 0 && currentMonster2.hp > 0) {
     // Calcular dano
-    const damage = Math.max(1, firstAttacker.attack - firstDefender.defense);
+    const damage = Math.max(1, attacker.attack - defender.defense);
     
     // Aplicar dano
-    firstDefender.hp = Math.max(0, firstDefender.hp - damage);
+    if (attacker.id === currentMonster1.id) {
+      currentMonster2.hp = Math.max(0, currentMonster2.hp - damage);
+    } else {
+      currentMonster1.hp = Math.max(0, currentMonster1.hp - damage);
+    }
     
     // Registrar round
     rounds.push({
-      round: roundNumber,
-      attacker: firstAttacker,
-      defender: firstDefender,
+      attacker,
+      defender,
       damage,
-      defenderHpAfter: firstDefender.hp
+      defenderHpAfter: attacker.id === currentMonster1.id ? currentMonster2.hp : currentMonster1.hp
     });
     
-    // Verificar se a batalha terminou
-    if (firstDefender.hp <= 0) {
-      break;
-    }
-    
-    // Trocar posições para o próximo round
-    [firstAttacker, firstDefender] = [firstDefender, firstAttacker];
-    roundNumber++;
+    // Trocar atacante e defensor para o próximo round
+    [attacker, defender] = [defender, attacker];
   }
   
   // Determinar vencedor
@@ -62,6 +61,6 @@ export function calculateBattle(monster1: Monster, monster2: Monster): BattleRes
     winner,
     loser,
     rounds,
-    totalRounds: roundNumber
+    totalRounds: rounds.length
   };
 } 

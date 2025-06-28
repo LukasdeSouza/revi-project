@@ -1,4 +1,3 @@
-import { Trophy, X, Zap, Heart } from 'lucide-react';
 import type { BattleResult } from '../types/monster';
 
 interface BattleResultProps {
@@ -9,102 +8,117 @@ interface BattleResultProps {
 export function BattleResult({ result, onClose }: BattleResultProps) {
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-      <div className="card w-full max-w-4xl animate-bounce-in">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-            <Trophy className="text-yellow-400" size={28} />
-            Resultado da Batalha
-          </h2>
+      <div className="bg-slate-800 border border-white/20 rounded-2xl p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-3xl font-bold text-white">Resultado da Batalha</h2>
           <button
             onClick={onClose}
-            className="text-white/70 hover:text-white transition-colors"
+            className="text-white/70 hover:text-white text-2xl"
           >
-            <X size={24} />
+            ×
           </button>
         </div>
 
         {/* Vencedor */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-3 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 rounded-xl px-6 py-4">
-            <Trophy className="text-yellow-400" size={32} />
-            <div>
-              <h3 className="text-xl font-bold text-white">{result.winner.name}</h3>
-              <p className="text-yellow-400 font-medium">Vencedor!</p>
+        <div className="bg-green-500/20 border border-green-500/30 rounded-xl p-6 mb-6">
+          <h3 className="text-2xl font-bold text-green-400 mb-4 text-center">🏆 VENCEDOR 🏆</h3>
+          <div className="flex items-center justify-center space-x-4">
+            <img
+              src={result.winner.image_url}
+              alt={result.winner.name}
+              className="w-20 h-20 rounded-lg object-cover border border-green-500/50"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = 'https://via.placeholder.com/80x80/6b7280/ffffff?text=?';
+              }}
+            />
+            <div className="text-center">
+              <h4 className="text-xl font-bold text-white">{result.winner.name}</h4>
+              <p className="text-green-400">HP restante: {result.winner.hp}</p>
             </div>
           </div>
         </div>
 
-        {/* Resumo da batalha */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <div className="card bg-red-500/10 border-red-500/30">
-            <h4 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-              <Zap className="text-red-400" size={20} />
-              {result.loser.name}
-            </h4>
-            <p className="text-red-400 font-medium">Derrotado</p>
+        {/* Perdedor */}
+        <div className="bg-red-500/20 border border-red-500/30 rounded-xl p-6 mb-6">
+          <h3 className="text-2xl font-bold text-red-400 mb-4 text-center">💀 PERDEDOR 💀</h3>
+          <div className="flex items-center justify-center space-x-4">
+            <img
+              src={result.loser.image_url}
+              alt={result.loser.name}
+              className="w-20 h-20 rounded-lg object-cover border border-red-500/50 opacity-50"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = 'https://via.placeholder.com/80x80/6b7280/ffffff?text=?';
+              }}
+            />
+            <div className="text-center">
+              <h4 className="text-xl font-bold text-white">{result.loser.name}</h4>
+              <p className="text-red-400">HP final: 0</p>
+            </div>
           </div>
+        </div>
 
-          <div className="card bg-blue-500/10 border-blue-500/30">
-            <h4 className="text-lg font-bold text-white mb-3 flex items-center gap-2">
-              <Heart className="text-blue-400" size={20} />
-              Estatísticas
-            </h4>
-            <p className="text-white/80">Total de rounds: {result.totalRounds}</p>
+        {/* Estatísticas da batalha */}
+        <div className="bg-white/10 border border-white/20 rounded-xl p-4 mb-6">
+          <h3 className="text-xl font-bold text-white mb-4 text-center">📊 Estatísticas da Batalha</h3>
+          <div className="grid grid-cols-2 gap-4 text-center">
+            <div>
+              <p className="text-white/70">Total de Rounds</p>
+              <p className="text-2xl font-bold text-white">{result.totalRounds}</p>
+            </div>
+            <div>
+              <p className="text-white/70">Duração</p>
+              <p className="text-2xl font-bold text-white">{result.totalRounds} rounds</p>
+            </div>
           </div>
         </div>
 
         {/* Detalhes dos rounds */}
-        <div className="space-y-4">
-          <h4 className="text-lg font-bold text-white">Detalhes da Batalha</h4>
-          <div className="max-h-64 overflow-y-auto space-y-3">
+        <div className="bg-white/10 border border-white/20 rounded-xl p-4">
+          <h3 className="text-xl font-bold text-white mb-4 text-center">⚔️ Detalhes dos Rounds</h3>
+          <div className="space-y-3 max-h-60 overflow-y-auto">
             {result.rounds.map((round, index) => (
-              <div
-                key={round.round}
-                className={`card transition-all duration-300 ${
-                  index === result.rounds.length - 1 
-                    ? 'bg-green-500/10 border-green-500/30' 
-                    : 'bg-white/5'
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm font-medium text-white/60">
-                      Round {round.round}
-                    </span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-white font-medium">
-                        {round.attacker.name}
-                      </span>
-                      <Zap className="text-yellow-400" size={16} />
-                      <span className="text-white font-medium">
-                        {round.defender.name}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-red-400 font-bold">
-                      -{round.damage}
-                    </span>
-                    <span className="text-white/60 text-sm">
-                      HP: {round.defenderHpAfter}
-                    </span>
-                  </div>
+              <div key={index} className="bg-white/5 border border-white/10 rounded-lg p-3">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-white/70">Round {index + 1}</span>
+                  <span className="text-sm font-bold text-red-400">Dano: {round.damage}</span>
                 </div>
-                
-                {round.defenderHpAfter <= 0 && (
-                  <div className="mt-2 text-green-400 font-medium text-sm">
-                    ⚡ {round.defender.name} foi derrotado!
+                <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center space-x-2">
+                    <img
+                      src={round.attacker.image_url}
+                      alt={round.attacker.name}
+                      className="w-6 h-6 rounded object-cover"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = 'https://via.placeholder.com/24x24/6b7280/ffffff?text=?';
+                      }}
+                    />
+                    <span className="text-green-400">{round.attacker.name}</span>
+                    <span className="text-white/50">→</span>
+                    <img
+                      src={round.defender.image_url}
+                      alt={round.defender.name}
+                      className="w-6 h-6 rounded object-cover"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = 'https://via.placeholder.com/24x24/6b7280/ffffff?text=?';
+                      }}
+                    />
+                    <span className="text-red-400">{round.defender.name}</span>
                   </div>
-                )}
+                  <span className="text-white/70">HP: {round.defenderHpAfter}</span>
+                </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="flex justify-center pt-6">
+        <div className="mt-6 text-center">
           <button
             onClick={onClose}
-            className="btn-primary"
+            className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-slate-800"
           >
             Fechar
           </button>
