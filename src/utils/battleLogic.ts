@@ -43,11 +43,16 @@ export function calculateBattle(monster1: Monster, monster2: Monster): BattleRes
       defenderHpAfter: attacker.id === currentMonster1.id ? currentMonster2.hp : currentMonster1.hp
     });
     
+    if ((attacker.id === currentMonster1.id && currentMonster2.hp === 0) ||
+        (attacker.id === currentMonster2.id && currentMonster1.hp === 0)) {
+      break;
+    }
+    
     [attacker, defender] = [defender, attacker];
   }
   
-  const winner = currentMonster1.hp > 0 ? currentMonster1 : currentMonster2;
-  const loser = currentMonster1.hp > 0 ? currentMonster2 : currentMonster1;
+  const winner = currentMonster1.hp > 0 ? monster1 : monster2;
+  const loser = currentMonster1.hp > 0 ? monster2 : monster1;
   
   return {
     winner,

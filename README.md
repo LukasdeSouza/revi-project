@@ -1,69 +1,45 @@
-# React + TypeScript + Vite
+# Batalha de Monstros
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto é uma aplicação web de batalha de monstros, desenvolvida como teste técnico para a Revi.
 
-Currently, two official plugins are available:
+## Descrição
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A aplicação permite cadastrar monstros com atributos personalizados (nome, ataque, defesa, velocidade, HP e imagem) e realizar batalhas automáticas entre eles, seguindo regras específicas de combate. O resultado da batalha é exibido de forma detalhada, mostrando cada round e o vencedor.
 
-## Expanding the ESLint configuration
+## Demonstração
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Cadastro de monstros com imagem
+- Visualização de todos os monstros cadastrados
+- Seleção de dois monstros para batalhar
+- Batalha automática, com rounds e exibição do vencedor
+- Visual moderno, responsivo e inspirado no design system da Revi
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tecnologias Utilizadas
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- **React 19** (com TypeScript)
+- **Vite** (build tool)
+- **Tailwind CSS v4** (estilização)
+- **Lucide React** (ícones)
+- **PNPM** (gerenciador de pacotes)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Como rodar o projeto
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1. **Clone o repositório:**
+   ```bash
+   git clone <url-do-repositorio>
+   cd rive-project
+   ```
+2. **Instale as dependências:**
+   ```bash
+   pnpm install
+   ```
+3. **Inicie o servidor de desenvolvimento:**
+   ```bash
+   pnpm run dev
+   ```
+4. **Acesse no navegador:**
+   Abra [http://localhost:5173](http://localhost:5173) para ver a aplicação rodando.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Observações
+- O projeto utiliza apenas bibliotecas modernas e open source.
+- O algoritmo de batalha segue exatamente as regras fornecidas no teste técnico.
