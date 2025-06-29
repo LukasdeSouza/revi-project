@@ -18,10 +18,10 @@ export function MonsterCard({ monster, onSelect, isSelected = false, isDisabled 
     <div
       onClick={handleClick}
       className={`
-        bg-white/10 backdrop-blur-sm border rounded-xl p-4 shadow-xl cursor-pointer transition-all duration-300
+        bg-white border border-slate-300 rounded-xl p-4 cursor-pointer transition-all duration-300 mt-8
         ${isSelected 
           ? 'border-purple-500 bg-purple-500/20 scale-105' 
-          : 'border-white/20 hover:scale-105 hover:bg-white/20'
+          : 'border-white/20 hover:scale-95 hover:bg-white/20'
         }
         ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}
       `}
@@ -38,22 +38,22 @@ export function MonsterCard({ monster, onSelect, isSelected = false, isDisabled 
         />
         
         <div className="flex-1">
-          <h3 className="text-lg font-bold text-white mb-2">{monster.name}</h3>
+          <h3 className="text-lg font-bold text-slate-800 text-left mb-2">{monster.name}</h3>
           
-          <div className="grid grid-cols-2 gap-2 text-sm">
-            <div className="flex items-center space-x-1">
+          <div className="grid grid-cols-2 gap-1 text-sm">
+            <div className="flex items-center space-x-1 px-2 py-1 w-fit rounded-full border border-slate-300">
               <span className="text-red-400">⚔️</span>
               <span>{monster.attack}</span>
             </div>
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center space-x-1 px-2 py-1 w-fit rounded-full border border-slate-300">
               <span className="text-blue-400">🛡️</span>
               <span>{monster.defense}</span>
             </div>
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center space-x-1 px-2 py-1 w-fit rounded-full border border-slate-300">
               <span className="text-green-400">⚡</span>
               <span>{monster.speed}</span>
             </div>
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center space-x-1 px-2 py-1 w-fit rounded-full border border-slate-300">
               <span className="text-yellow-400">❤️</span>
               <span>{monster.hp}</span>
             </div>

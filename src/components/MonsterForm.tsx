@@ -25,7 +25,6 @@ export function MonsterForm({ onMonsterCreated }: MonsterFormProps) {
     
     onMonsterCreated(newMonster);
     
-    // Reset form
     setFormData({
       name: '',
       attack: 0,
@@ -44,11 +43,20 @@ export function MonsterForm({ onMonsterCreated }: MonsterFormProps) {
     }));
   };
 
+  const isFormValid =
+    formData.name.trim() !== '' &&
+    formData.attack > 0 &&
+    formData.defense > 0 &&
+    formData.speed > 0 &&
+    formData.hp > 0 &&
+    formData.image_url.trim() !== '';
+
   return (
-    <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 shadow-xl">
-      <h2 className="text-2xl font-bold mb-6 text-center">Cadastrar Monstro</h2>
-      
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="bg-white backdrop-blur-sm border-4 border-white/20 rounded-xl p-6 shadow-xl">
+      <h2 className="text-2xl">Cadastrar Monstro</h2>
+      <span >preencha todas as infos abaixo para criar um novo monstro.</span>
+      <hr className="mt-4 bg-slate-200 h-px border-0 rounded" />
+      <form onSubmit={handleSubmit} className="space-y-4 mt-6">
         <div>
           <label className="block text-sm font-medium mb-2">Nome</label>
           <input
@@ -131,7 +139,14 @@ export function MonsterForm({ onMonsterCreated }: MonsterFormProps) {
 
         <button
           type="submit"
-          className="w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-slate-900"
+          disabled={!isFormValid}
+          className={`w-full h-12 px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 focus:ring-offset-white
+            ${!isFormValid ? 'bg-gray-300 text-gray-400 cursor-not-allowed' : 'text-white'}
+          `}
+          style={isFormValid ? {
+            background: 'linear-gradient(90deg, rgb(74, 143, 255) 0%, rgb(10, 84, 206) 100%)',
+            boxShadow: '0 2px 8px 0 #2563eb22',
+          } : {}}
         >
           Cadastrar Monstro
         </button>
